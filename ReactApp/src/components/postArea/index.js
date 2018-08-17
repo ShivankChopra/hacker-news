@@ -18,6 +18,10 @@ class PostArea extends React.Component {
             + '.json?print=pretty';
     }
 
+    getLocalScoreUri(itemId) {
+        return 'localhost:3001/hackernews/api/score/' + itemId;
+    }
+
     // perform actions before rendering
     componentDidMount() {
         axios.get(this.popularPostsUrl).then(response => {
@@ -27,6 +31,11 @@ class PostArea extends React.Component {
             let rows = []; // hold first 20 posts
             for (let i = 0; i < 20; i++) {
                 let uri = this.getPostByIdUrl(this.state.popularPosts[i]);
+                let localStoreUri = this.getLocalScoreUri(this.state.popularPosts[i]);
+                axios.get(localStoreUri, { crossdomain: true }).then(response => {
+                    console.log(response);
+                }).catch(err => console.log(err));
+
                 axios.get(uri).then(response => {
                     let data = response.data;
                     rows.push(data);
@@ -36,18 +45,6 @@ class PostArea extends React.Component {
                 });
             }
         });
-    }
-
-    getChildren() {
-        let children = []; // hold first 20 posts
-        for (let i = 0; i < 20; i++) {
-            let uri = this.getPostByIdUrl(this.state.popularPosts[i]);
-            axios.get(uri).then(response => {
-                let data = response.data;
-                children.push(data);
-            });
-        }
-        return children;
     }
 
     render() {
