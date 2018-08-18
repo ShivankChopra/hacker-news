@@ -19,7 +19,7 @@ class PostArea extends React.Component {
     }
 
     getLocalScoreUri(itemId) {
-        return 'localhost:3001/hackernews/api/score/' + itemId;
+        return 'http://localhost:3001/hackernews/api/score/' + itemId;
     }
 
     // perform actions before rendering
@@ -32,12 +32,15 @@ class PostArea extends React.Component {
             for (let i = 0; i < 20; i++) {
                 let uri = this.getPostByIdUrl(this.state.popularPosts[i]);
                 let localStoreUri = this.getLocalScoreUri(this.state.popularPosts[i]);
-                axios.get(localStoreUri, { crossdomain: true }).then(response => {
-                    console.log(response);
+                let localScore = 0;
+
+                axios.get(localStoreUri).then(response => {
+                    localScore = response.data.score;
                 }).catch(err => console.log(err));
 
                 axios.get(uri).then(response => {
                     let data = response.data;
+                    data.score += localScore
                     rows.push(data);
                     this.setState({
                         renderedPosts: rows

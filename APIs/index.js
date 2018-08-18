@@ -2,7 +2,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const routes = require('./routes/score');
-const cors = require('cors');
 
 const PORT = 3001;
 
@@ -16,12 +15,6 @@ const db = mongoose.connection;
 const app = express();
 app.use(bodyParser.json());
 app.use(routes);
-app.use(cors({
-    'origin': '*',
-    'methods': '*',
-    'preflightContinue': false,
-    'optionsSuccessStatus': 204
-}));
 
 app.get('/', (req, res) => {
     res.send('hello')
