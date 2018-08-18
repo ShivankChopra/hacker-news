@@ -40,7 +40,7 @@ class PostArea extends React.Component {
 
                 axios.get(uri).then(response => {
                     let data = response.data;
-                    data.score += localScore
+                    data.score += localScore;
                     rows.push(data);
                     this.setState({
                         renderedPosts: rows

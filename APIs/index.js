@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const routes = require('./routes/score');
+const routes = require('./routes');
 
 const PORT = 3001;
 
@@ -15,10 +15,6 @@ const db = mongoose.connection;
 const app = express();
 app.use(bodyParser.json());
 app.use(routes);
-
-app.get('/', (req, res) => {
-    res.send('hello')
-})
 
 // start server
 db.once('open', () => {

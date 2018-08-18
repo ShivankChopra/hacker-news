@@ -1,7 +1,8 @@
 const router = require('express').Router();
 const Score = require('../resources/score');
+const verifyToken = require('../utils/verifyToken');
 
-router.post('/hackernews/api/upvote/:postid', (req, res) => {
+router.post('/hackernews/api/upvote/:postid', verifyToken, (req, res) => {
     Score.findOne({ articleId: req.params.postid }).then(function (data) {
         if (data) { // article already exists
             let score = data.score;
@@ -10,7 +11,7 @@ router.post('/hackernews/api/upvote/:postid', (req, res) => {
                 .then(function (response) {
                     res.send({
                         success: true,
-                        status: 'OK',
+                        status: 200,
                         score: response.score
                     });
                 }).catch(err => res.status(500).send(err));
@@ -19,7 +20,7 @@ router.post('/hackernews/api/upvote/:postid', (req, res) => {
             Score.create({ articleId: req.params.postid, score: 1 }).then(function (data) {
                 res.send({
                     success: true,
-                    status: 'OK',
+                    status: 200,
                     score: data.score
                 });
             }).catch(err => res.status(500).send(err));
@@ -27,7 +28,7 @@ router.post('/hackernews/api/upvote/:postid', (req, res) => {
     }).catch(err => res.status(500).send(err));
 });
 
-router.get('/hackernews/api/score/:postid', (req, res) => {
+router.get('/hackernews/api/score/:postid', verifyToken, (req, res) => {
     Score.findOne({ articleId: req.params.postid }).then(function (data) {
         if (data) res.send({
             success: true,
