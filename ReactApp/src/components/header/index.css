@@ -1,4 +1,6 @@
 .Header{
     background-color: blueviolet;
     color: azure;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
