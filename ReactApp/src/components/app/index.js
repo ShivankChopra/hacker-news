@@ -1,21 +1,39 @@
 import React from 'react';
-import Header from '../header';
-import PostArea from '../postArea';
+import News from '../news/';
+import Login from '../login/';
+import Signup from '../signup/';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 class App extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            loggedIn: props.loggedIn
-        }
+    }
+
+    handleLogin() {
+
+    }
+
+    handleSignup() {
+
+    }
+
+    handleFetchData() {
+
+    }
+
+    handleUpvote() {
+
     }
 
     render() {
         return (
-            <div className='App'>
-                <Header />
-                <PostArea />
-            </div>
+            <Router>
+                <div>
+                    <Route exact strict path='/' component={News} />
+                    <Route exact strict path='/login' component={Login} />
+                    <Route exact strict path='/signup' component={Signup} />
+                </div>
+            </Router>
         );
     }
 }

@@ -1,8 +1,9 @@
 import React from 'react';
 import axios from 'axios';
 import Post from '../post';
+import Header from '../header';
 
-class PostArea extends React.Component {
+class News extends React.Component {
     constructor(props) {
         super(props);
         this.popularPostsUrl = 'https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty';
@@ -63,10 +64,11 @@ class PostArea extends React.Component {
         });
         return (
             <div className='PostArea'>
+                <Header />
                 {posts}
             </div>
         );
     }
 }
 
-export default PostArea;
+export default News;

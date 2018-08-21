@@ -50,6 +50,7 @@ class Signup extends React.Component {
                 <div>
                     <Header />
                     <div className='signup'>
+                        <h3>Please enter following details</h3>
                         <form onSubmit={this.handleSubmit.bind(this)}>
                             <label>Name</label><br />
                             <input
